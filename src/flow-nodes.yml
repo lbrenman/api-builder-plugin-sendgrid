@@ -1,0 +1,83 @@
+flow-nodes:
+  sendgrid:
+    name: SendGrid
+    icon: icon.png
+    description: Example flow-node to send emails using Twilio SendGrid.
+    category: Messaging
+    methods:
+      sendEmail: # This same key is used in `actions.js`
+        name: Send Email
+        description: Sends an email.
+        parameters:
+          to:
+            name: to
+            description: email addresses of the recipients
+            required: true
+            initialType: array
+            schema:
+              type: array
+              items:
+                type: string
+          from:
+            name: from
+            description: email address of the sender (must be SendGrid verified)
+            required: true
+            initialType: string
+            schema:
+              type: string
+          replyTo:
+            name: replyTo
+            description: replyTo email address
+            required: false
+            initialType: string
+            schema:
+              type: string
+          cc:
+            name: cc
+            description: email addresses of the cc recipients
+            required: false
+            initialType: array
+            schema:
+              type: array
+              items:
+                type: string
+          bcc:
+            name: bcc
+            description: email addresses of the bcc recipients
+            required: false
+            initialType: array
+            schema:
+              type: array
+              items:
+                type: string
+          subject:
+            name: subject
+            description: email subject
+            required: true
+            initialType: string
+            schema:
+              type: string
+          html:
+            name: html
+            description: email body
+            required: true
+            initialType: string
+            schema:
+              type: string
+        # "Next" (next) output
+        returns:
+          name: Next
+          description: The operation was successful.
+          context: $.sendgridoutout
+          schema:
+            type: object
+        # "Error" (error) output
+        throws:
+          name: Error
+          description: An unexpected error was encountered.
+          context: $.sendgriderror
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
